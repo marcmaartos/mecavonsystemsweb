@@ -42,7 +42,7 @@ export function HowWeWork() {
 
         <Photo
           file="taller.jpg"
-          alt="Interior de un taller de automoción con coches en los elevadores"
+          alt="Coche azul con el capó abierto y sin ruedas, sobre caballetes en un taller"
           sizes="(min-width: 1152px) 1088px, 100vw"
           className="mt-12 aspect-[16/9] md:aspect-[21/9]"
         />
