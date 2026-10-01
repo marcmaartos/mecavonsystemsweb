@@ -42,3 +42,4 @@ next-env.d.ts
 
 # skills de Claude Code instaladas en local (no forman parte de la web)
 /.claude/
+.vercel
