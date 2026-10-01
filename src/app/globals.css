@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta de marca Mecavon */
+  --color-navy: #152e68;
+  --color-navy-600: #1d3e85;
+  --color-mist: #c9d3e3;
+  --color-graphite: #2e3a42;
+  --color-teal: #147d6f;
+  --color-teal-700: #0f6358;
+  --color-paper: #f4f6f9;
+  --color-line: #e2e7ee;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-graphite);
+}
+
+/* El botón flotante de WhatsApp se aparta mientras el banner de cookies está abierto. */
+html[data-cookie-banner="open"] .whatsapp-fab {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+::selection {
+  background: var(--color-mist);
+  color: var(--color-navy);
+}
