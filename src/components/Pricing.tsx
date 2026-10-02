@@ -1,22 +1,24 @@
-import { Check } from "lucide-react";
-import { CTA_HREF, CTA_LABEL, PILOT, PLANS } from "@/config";
+import { BadgeEuro, Check, Star, TrendingUp } from "lucide-react";
+import { CTA_HREF, CTA_LABEL, PILOT, PLANS, PRICING_PERKS } from "@/config";
 
 const price = new Intl.NumberFormat("es-ES", { useGrouping: "always" } as Intl.NumberFormatOptions);
+
+const PERK_ICONS = { zero: BadgeEuro, upgrade: TrendingUp };
 
 export function Pricing() {
   return (
     <section id="precios" className="scroll-mt-16 bg-paper py-24 md:scroll-mt-[72px] md:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
             Precios claros, sin letra pequeña.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed">
             Nuestro equipo lo monta y lo gestiona. Tú eliges hasta dónde quieres llegar.
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 rounded-xl bg-navy-600 px-5 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto mt-10 flex max-w-5xl flex-col gap-4 rounded-xl bg-navy-600 px-5 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p className="font-semibold sm:text-lg">{PILOT.text}</p>
           <a
             href={CTA_HREF}
@@ -26,36 +28,51 @@ export function Pricing() {
           </a>
         </div>
 
-        <ul className="mt-6 grid gap-5 lg:grid-cols-3">
+        {/* En móvil van uno debajo de otro con Taller Pro primero; en escritorio, Taller a la izquierda. */}
+        <ul className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-2">
           {PLANS.map((plan) => (
             <li
               key={plan.name}
-              className={`relative flex flex-col rounded-2xl bg-white p-7 sm:p-8 ${
-                plan.featured ? "border-2 border-navy shadow-xl shadow-navy/10" : "border border-line"
+              className={`relative flex flex-col rounded-2xl bg-white p-7 sm:p-9 ${
+                plan.featured
+                  ? "order-first border-2 border-navy shadow-xl shadow-navy/10 md:order-none"
+                  : "border border-line"
               }`}
             >
               {plan.featured && (
-                <span className="absolute -top-3.5 left-7 rounded-full bg-navy px-3 py-1 text-xs font-semibold text-white">
+                <span className="absolute -top-3.5 left-7 rounded-full bg-navy px-3 py-1 text-xs font-semibold text-white sm:left-9">
                   Recomendado
                 </span>
               )}
-              <h3 className="text-xl font-semibold text-navy">{plan.name}</h3>
+              <h3 className="text-2xl font-semibold text-navy">{plan.name}</h3>
               <p className="mt-1 text-graphite">{plan.goal}</p>
-              {plan.audience && <p className="mt-2 text-sm font-medium text-navy-600">{plan.audience}</p>}
               <p className="mt-6 flex items-baseline gap-1.5 text-navy">
-                <span className="text-4xl font-bold tracking-tight">{price.format(plan.price)} €</span>
+                <span className="text-5xl font-bold tracking-tight">{price.format(plan.price)} €</span>
                 <span className="text-graphite">/mes</span>
               </p>
 
-              {plan.includes && <p className="mt-6 text-sm font-medium text-navy">{plan.includes}</p>}
-              <ul className={`${plan.includes ? "mt-3" : "mt-6"} flex-1 space-y-3`}>
+              {plan.includes && <p className="mt-7 text-sm font-semibold text-navy">{plan.includes}</p>}
+              <ul className={`${plan.includes ? "mt-3" : "mt-7"} flex-1 space-y-3`}>
                 {plan.features.map((f) => (
-                  <li key={f} className="flex gap-3 text-[0.95rem] leading-snug">
-                    <Check size={20} strokeWidth={2.5} className="shrink-0 text-teal" aria-hidden="true" />
-                    {f}
+                  <li key={f.text} className="flex gap-3 text-[0.95rem] leading-snug">
+                    {f.hook ? (
+                      <Star size={20} strokeWidth={2} className="shrink-0 fill-teal text-teal" aria-hidden="true" />
+                    ) : (
+                      <Check size={20} strokeWidth={2.5} className="shrink-0 text-teal" aria-hidden="true" />
+                    )}
+                    <span>
+                      {f.text}
+                      {f.hook && <span className="sr-only"> (muestra de Taller Pro)</span>}
+                    </span>
                   </li>
                 ))}
               </ul>
+              {plan.hookNote && (
+                <p className="mt-5 flex items-center gap-2 rounded-lg bg-paper px-3 py-2 text-sm font-medium text-navy">
+                  <Star size={16} strokeWidth={2} className="shrink-0 fill-teal text-teal" aria-hidden="true" />
+                  {plan.hookNote}
+                </p>
+              )}
 
               <a
                 href={CTA_HREF}
@@ -71,7 +88,19 @@ export function Pricing() {
           ))}
         </ul>
 
-        <p className="mt-6 text-sm text-graphite">IVA no incluido. Sin permanencia: pagas mes a mes.</p>
+        <ul className="mx-auto mt-6 grid max-w-5xl gap-4 sm:grid-cols-2">
+          {PRICING_PERKS.map((perk) => {
+            const Icon = PERK_ICONS[perk.icon];
+            return (
+              <li key={perk.text} className="flex items-start gap-3 rounded-xl border border-line bg-white px-5 py-4">
+                <Icon size={24} strokeWidth={2} className="mt-0.5 shrink-0 text-navy" aria-hidden="true" />
+                <span className="font-medium leading-snug text-navy">{perk.text}</span>
+              </li>
+            );
+          })}
+        </ul>
+
+        <p className="mx-auto mt-6 max-w-5xl text-sm text-graphite">IVA no incluido. Sin permanencia: pagas mes a mes.</p>
       </div>
     </section>
   );

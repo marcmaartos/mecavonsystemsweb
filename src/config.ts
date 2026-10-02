@@ -59,54 +59,58 @@ export const CALCULATOR = {
 };
 
 export const PILOT = {
-  text: "Programa piloto: Avanzado a 500 €/mes durante 90 días. Plazas limitadas",
+  text: "Programa piloto: Taller Pro a 1.000 €/mes durante 90 días. Solo 3 talleres.",
+};
+
+export type PlanFeature = {
+  text: string;
+  /** Gancho: muestra limitada de algo que Taller Pro hace sin límite. Se marca con una estrella. */
+  hook?: boolean;
 };
 
 export const PLANS: {
   name: string;
   price: number;
   goal: string;
-  audience?: string;
   featured?: boolean;
   includes?: string;
-  features: string[];
+  features: PlanFeature[];
+  /** Nota bajo la lista (solo si el plan tiene ganchos). */
+  hookNote?: string;
 }[] = [
   {
-    name: "Básico",
-    price: 500,
-    goal: "No perder llamadas",
+    name: "Taller",
+    price: 890,
+    goal: "Para que no se te escape ningún cliente",
     features: [
-      "Llamadas perdidas atendidas por WhatsApp 24 h",
-      "Solicitud de cita desde el chat",
-      "Traspaso a una persona cuando hace falta",
+      { text: "Llamadas perdidas atendidas por WhatsApp 24 h" },
+      { text: "Citas, confirmación y recordatorios" },
+      { text: "Seguimiento de presupuestos por WhatsApp" },
+      { text: "Aviso de vehículo listo y traspaso a una persona" },
+      { text: "1 campaña de reactivación de clientes al trimestre", hook: true },
+      { text: "Petición de reseñas en Google a 20 clientes al mes", hook: true },
+      { text: "Informe mensual con «lo que podrías recuperar con Pro»", hook: true },
     ],
+    hookNote: "Incluye una muestra de Taller Pro",
   },
   {
-    name: "Avanzado",
-    price: 1000,
-    goal: "Agenda y presupuestos",
-    featured: true,
-    includes: "Todo lo del Básico, más:",
-    features: [
-      "Confirmación y recordatorios de cita",
-      "Lista de espera para huecos libres",
-      "Seguimiento y aprobación de presupuestos por WhatsApp",
-      "Aviso de vehículo listo",
-      "Optimización mensual",
-    ],
-  },
-  {
-    name: "Premium",
+    name: "Taller Pro",
     price: 2000,
-    goal: "Clientes que vuelven",
-    audience: "Para talleres grandes o con varios centros",
-    includes: "Todo lo del Avanzado, más:",
+    goal: "Para llenar la agenda, no solo ordenarla",
+    featured: true,
+    includes: "Todo lo del Taller, sin límites, más:",
     features: [
-      "Reactivación de clientes que hace tiempo que no vienen",
-      "Avisos de mantenimiento e ITV",
-      "Seguimiento post-reparación y petición de reseñas",
-      "Reunión mensual de resultados",
-      "Soporte prioritario",
+      { text: "Reactivación continua de clientes" },
+      { text: "Avisos de mantenimiento e ITV" },
+      { text: "Lista de espera para huecos libres" },
+      { text: "Seguimiento post-reparación y reseñas a todos los clientes" },
+      { text: "Reunión mensual de resultados y optimización" },
+      { text: "Soporte prioritario y varios centros" },
     ],
   },
 ];
+
+export const PRICING_PERKS = [
+  { icon: "zero", text: "Sin coste de alta" },
+  { icon: "upgrade", text: "¿Subes a Pro en los primeros 3 meses? Te descontamos tu último mes de Taller" },
+] as const;
