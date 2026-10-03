@@ -29,6 +29,12 @@ body {
   color: var(--color-graphite);
 }
 
+/* Interlineado uniforme de todos los párrafos. Va fuera de las capas de Tailwind a propósito,
+   para que prevalezca sobre las clases leading-* y text-* que fijan otro interlineado. */
+p {
+  line-height: 1.6;
+}
+
 /* El botón flotante de WhatsApp se aparta mientras el banner de cookies está abierto. */
 html[data-cookie-banner="open"] .whatsapp-fab {
   opacity: 0;

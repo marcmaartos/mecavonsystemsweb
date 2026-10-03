@@ -45,12 +45,12 @@ export function Contact() {
         <h2 className="text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
           Habla con nosotros
         </h2>
-        <p className="mt-4 flex items-center gap-2 text-graphite">
+        <p className="mt-6 flex items-center gap-2 text-graphite">
           <Clock size={20} strokeWidth={2} className="shrink-0" aria-hidden="true" />
           {SUPPORT_HOURS}
         </p>
 
-        <ul className="mt-10 grid gap-5 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-5 lg:grid-cols-3">
           <ContactCard
             icon={<WhatsAppIcon className="h-6 w-6" />}
             title="WhatsApp"

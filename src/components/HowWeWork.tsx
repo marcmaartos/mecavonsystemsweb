@@ -65,7 +65,7 @@ export function HowWeWork() {
 
         <p className="mt-8 flex items-start gap-3 rounded-2xl bg-navy px-6 py-5 text-lg font-medium text-white">
           <UserRound size={26} strokeWidth={2} className="mt-0.5 shrink-0 text-mist" aria-hidden="true" />
-          Tienes un responsable de cuenta asignado que conoce tu taller.
+          Hablas siempre con la misma persona, que conoce tu taller.
         </p>
       </div>
     </section>

@@ -38,7 +38,7 @@ export function System() {
           </p>
         </div>
 
-        <ol className="mt-16 grid gap-5 md:grid-cols-3">
+        <ol className="mt-12 grid gap-5 md:grid-cols-3">
           {STEPS.map(({ icon: Icon, title, text }, i) => (
             <li key={title}>
               <Reveal

@@ -61,7 +61,7 @@ export function Footer() {
             </li>
             <li>
               <a href={PHONE_HREF} className={linkClass}>
-                {PHONE.display}
+                {PHONE.cardDisplay}
               </a>
             </li>
           </ul>

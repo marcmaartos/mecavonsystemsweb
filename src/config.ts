@@ -30,8 +30,8 @@ export const SUPPORT_HOURS = "De lunes a viernes, de 9:00 a 18:00"; // PLACEHOLD
 export const CONTACT_EMAIL = "marcmartossalvany@gmail.com";
 
 export const PHONE = {
-  display: "+34 686767387", // como se muestra en el footer y el aviso legal
-  cardDisplay: "+34 686 76 73 87", // como se muestra en la tarjeta de contacto
+  display: "+34 686767387", // como se muestra en el aviso legal
+  cardDisplay: "+34 686 76 73 87", // como se muestra en la tarjeta de contacto y el footer
   tel: "+34686767387", // mismo número sin espacios, para el enlace tel:
 };
 
@@ -62,7 +62,9 @@ export const CALCULATOR = {
 };
 
 export const PILOT = {
-  text: "Programa piloto: Taller Pro a 1.000 €/mes durante 90 días. Solo 3 talleres.",
+  text: "Primer mes de Taller Pro a 990 €",
+  /** Línea pequeña bajo el texto del banner. */
+  note: "Después 1.490 €/mes · Solo 3 talleres · Sin permanencia",
 };
 
 export type PlanFeature = {
@@ -101,7 +103,7 @@ export const PLANS: {
   },
   {
     name: "Taller Pro",
-    price: 2000,
+    price: 1490,
     goal: "Para llenar la agenda, no solo ordenarla",
     featured: true,
     includes: "Todo lo del Taller, sin límites, más:",

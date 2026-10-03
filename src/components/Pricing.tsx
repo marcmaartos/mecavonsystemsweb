@@ -17,7 +17,7 @@ export function Pricing() {
   return (
     <section id="precios" className="scroll-mt-16 bg-paper py-24 md:scroll-mt-[72px] md:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="mx-auto max-w-5xl">
+        <div>
           <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
             Precios claros, sin letra pequeña.
           </h2>
@@ -26,8 +26,11 @@ export function Pricing() {
           </p>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-5xl flex-col gap-4 rounded-xl bg-navy-600 px-5 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p className="font-semibold sm:text-lg">{PILOT.text}</p>
+        <div className="mt-12 flex flex-col gap-4 rounded-xl bg-navy-600 px-5 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <p className="font-semibold sm:text-lg">{PILOT.text}</p>
+            <p className="mt-1 text-sm text-white/80">{PILOT.note}</p>
+          </div>
           <a
             href={CTA_HREF}
             className="flex min-h-12 shrink-0 items-center justify-center rounded-lg bg-teal px-6 font-semibold text-white transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -37,7 +40,7 @@ export function Pricing() {
         </div>
 
         {/* En móvil van uno debajo de otro con Taller Pro primero; en escritorio, Taller a la izquierda. */}
-        <ul className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-2">
+        <ul className="mt-8 grid gap-6 md:grid-cols-2">
           {PLANS.map((plan) => (
             <li
               key={plan.name}
@@ -99,7 +102,7 @@ export function Pricing() {
           ))}
         </ul>
 
-        <ul className="mx-auto mt-6 grid max-w-5xl gap-4 sm:grid-cols-2">
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
           {PRICING_PERKS.map((perk) => {
             const Icon = PERK_ICONS[perk.icon];
             return (
@@ -111,7 +114,7 @@ export function Pricing() {
           })}
         </ul>
 
-        <p className="mx-auto mt-6 max-w-5xl text-sm text-graphite">IVA no incluido. Sin permanencia: pagas mes a mes.</p>
+        <p className="mt-6 text-sm text-graphite">IVA no incluido. Sin permanencia: pagas mes a mes.</p>
       </div>
     </section>
   );
