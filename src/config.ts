@@ -1,7 +1,7 @@
 // Datos que cambian a menudo. Todo lo marcado "PLACEHOLDER" hay que sustituirlo antes de publicar.
 // Regla de la web: aquí solo va información verdadera. Si algo no está confirmado, se deja vacío o comentado.
 
-export const SITE_URL = "https://mecavon.es"; // PLACEHOLDER: confirma el dominio definitivo
+export const SITE_URL = "https://mecavon-systems.vercel.app"; // cambiar cuando haya dominio propio
 
 export const CTA_LABEL = "Auditoría gratuita";
 export const CTA_SUBTEXT = "Te decimos cuánto dinero pierdes en una semana. Gratis y sin compromiso.";
@@ -25,13 +25,20 @@ export const setupTimeText = () =>
 /** Nombre con el que se identifica la web. Sin CIF/NIF ni datos de empresa por decisión del titular. */
 export const BRAND_NAME = "Mecavon Systems";
 
+/** Titular de la web para las páginas legales (todavía no hay sociedad constituida). */
+export const HOLDER = {
+  name: "Marc Martos Salvany",
+  city: "[TU CIUDAD]", // PLACEHOLDER: ciudad del domicilio y de los juzgados competentes
+};
+export const HOLDER_TEXT = `${HOLDER.name}, que opera bajo el nombre comercial ${BRAND_NAME}`;
+
 export const SUPPORT_HOURS = "De lunes a viernes, de 9:00 a 18:00"; // PLACEHOLDER: confirma el horario real
 
 export const CONTACT_EMAIL = "marcmartossalvany@gmail.com";
 
 export const PHONE = {
-  display: "+34 686767387", // como se muestra en el aviso legal
-  cardDisplay: "+34 686 76 73 87", // como se muestra en la tarjeta de contacto y el footer
+  display: "+34 686767387", // formato sin espacios (no se usa en la web ahora mismo)
+  cardDisplay: "+34 686 76 73 87", // como se muestra en contacto, footer y páginas legales
   tel: "+34686767387", // mismo número sin espacios, para el enlace tel:
 };
 

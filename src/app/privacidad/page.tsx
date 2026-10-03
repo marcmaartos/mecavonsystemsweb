@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/components/LegalPage";
-import { BRAND_NAME, PRIVACY_EMAIL } from "@/config";
+import { LegalIdentity, LegalPage } from "@/components/LegalPage";
+import { PRIVACY_EMAIL } from "@/config";
 
 export const metadata: Metadata = {
   title: "Política de privacidad | Mecavon Systems",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacidad" },
 };
 
-// PLACEHOLDER: texto base. Revísalo con un asesor legal antes de publicar la web.
+// Conviene revisar este texto con un asesor legal.
 export default function PrivacyPage() {
   return (
     <LegalPage
@@ -16,11 +16,7 @@ export default function PrivacyPage() {
       sections={[
         {
           title: "Quién es el responsable",
-          body: (
-            <p>
-              {BRAND_NAME}. Puedes escribirnos a {PRIVACY_EMAIL}.
-            </p>
-          ),
+          body: <LegalIdentity />,
         },
         {
           title: "Qué datos recogemos",
@@ -46,11 +42,25 @@ export default function PrivacyPage() {
         },
         {
           title: "Cuánto tiempo los guardamos",
-          body: <p>Mientras dure la relación contigo y, después, el tiempo que obligue la ley. [Plazo concreto pendiente].</p>,
+          body: (
+            <p>
+              Conservamos los datos del formulario mientras dure la relación y, si no llegas a ser
+              cliente, como máximo 12 meses desde el último contacto.
+            </p>
+          ),
         },
         {
           title: "Con quién los compartimos",
-          body: <p>[Lista de proveedores que tratan datos por cuenta de Mecavon pendiente: alojamiento web, email, WhatsApp, CRM].</p>,
+          body: (
+            <>
+              <p>No vendemos tus datos. Solo los tratan, por nuestra cuenta, estos proveedores:</p>
+              <ul className="list-disc space-y-1 pl-5">
+                <li>Vercel: alojamiento de la web, incluido el formulario.</li>
+                <li>Google: correo electrónico, si nos escribes por email.</li>
+                <li>WhatsApp (Meta): mensajería, si nos escribes por WhatsApp.</li>
+              </ul>
+            </>
+          ),
         },
         {
           title: "Tus derechos",

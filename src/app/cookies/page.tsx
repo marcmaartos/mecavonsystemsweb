@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/components/LegalPage";
+import { LegalIdentity, LegalPage } from "@/components/LegalPage";
 import { CookieSettingsButton } from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
@@ -14,6 +14,10 @@ export default function CookiesPage() {
     <LegalPage
       title="Política de cookies"
       sections={[
+        {
+          title: "Quién es el responsable",
+          body: <LegalIdentity />,
+        },
         {
           title: "Qué son las cookies",
           body: (

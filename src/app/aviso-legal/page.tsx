@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/components/LegalPage";
-import { BRAND_NAME, CONTACT_EMAIL, PHONE, SITE_URL } from "@/config";
+import { LegalIdentity, LegalPage } from "@/components/LegalPage";
+import { BRAND_NAME, HOLDER } from "@/config";
 
 export const metadata: Metadata = {
   title: "Aviso legal | Mecavon Systems",
@@ -8,23 +8,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/aviso-legal" },
 };
 
-// PLACEHOLDER: texto base según la LSSI-CE (Ley 34/2002). Revísalo con un asesor legal.
+// Texto según la LSSI-CE (Ley 34/2002). Conviene revisarlo con un asesor legal.
 export default function LegalNoticePage() {
-  const email = CONTACT_EMAIL;
   return (
     <LegalPage
       title="Aviso legal"
       sections={[
         {
           title: "Datos identificativos",
-          body: (
-            <ul className="list-disc space-y-1 pl-5">
-              <li>Titular: {BRAND_NAME}</li>
-              <li>Email: {email}</li>
-              <li>Teléfono: {PHONE.display}</li>
-              <li>Web: {SITE_URL}</li>
-            </ul>
-          ),
+          body: <LegalIdentity />,
         },
         {
           title: "Uso de la web",
@@ -56,7 +48,12 @@ export default function LegalNoticePage() {
         },
         {
           title: "Legislación aplicable",
-          body: <p>Esta web se rige por la legislación española. [Jurisdicción competente pendiente].</p>,
+          body: (
+            <p>
+              Esta web se rige por la legislación española. Para cualquier controversia serán
+              competentes los juzgados y tribunales de {HOLDER.city}, salvo que la ley disponga otra cosa.
+            </p>
+          ),
         },
       ]}
     />
