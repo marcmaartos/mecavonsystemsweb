@@ -71,21 +71,24 @@ export function Hero() {
             sin que sueltes la llave.
           </p>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={CTA_HREF}
-              className="flex min-h-14 items-center justify-center rounded-lg bg-teal px-7 text-center font-semibold text-white transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              {CTA_LABEL}
-            </a>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start">
+            {/* Botón principal y su línea de apoyo van juntos, con el mismo ancho. */}
+            <div className="flex flex-col sm:w-72">
+              <a
+                href={CTA_HREF}
+                className="flex min-h-14 items-center justify-center rounded-lg bg-teal px-7 text-center font-semibold text-white transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {CTA_LABEL}
+              </a>
+              <p className="mt-2 text-sm leading-snug text-mist">{CTA_SUBTEXT}</p>
+            </div>
             <a
               href="#como-funciona"
-              className="flex min-h-14 items-center justify-center rounded-lg border-2 border-white/70 px-7 text-center font-semibold text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="mt-3 flex min-h-14 items-center justify-center rounded-lg border-2 border-white/70 px-7 text-center font-semibold text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:mt-0"
             >
               Ver cómo funciona
             </a>
           </div>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-mist">{CTA_SUBTEXT}</p>
 
           <p className="mt-8 flex items-start gap-2 text-sm text-mist">
             <Check size={18} strokeWidth={2.5} className="mt-0.5 shrink-0" aria-hidden="true" />

@@ -30,13 +30,12 @@ export function HowWeWork() {
   return (
     <section id="como-trabajamos" className="scroll-mt-16 bg-white py-24 md:scroll-mt-[72px] md:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
+        <div>
+          <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
             Cómo trabajamos contigo
           </h2>
           <p className="mt-6 text-lg leading-relaxed">
-            Es un servicio gestionado: nuestro equipo lo monta, lo vigila y lo mejora. Tú no tienes
-            que aprender ningún programa.
+            Lo montamos, lo vigilamos y lo mejoramos nosotros. Tú no tienes que aprender ningún programa.
           </p>
         </div>
 

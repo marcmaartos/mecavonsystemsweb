@@ -8,13 +8,11 @@ export const CTA_SUBTEXT = "Te decimos cuánto dinero pierdes en una semana. Gra
 export const CTA_HREF = "#auditoria";
 
 export const WHATSAPP = {
-  // Formato internacional sin "+" ni espacios. PLACEHOLDER: pon tu número real.
-  number: "34XXXXXXXXX",
-  message: "Hola, quiero la auditoría gratuita para mi taller",
+  // Formato internacional sin "+", espacios ni guiones (lo exige wa.me).
+  number: "34686767387",
+  /** Mensaje predefinido de todos los enlaces de WhatsApp de la web. */
+  message: "Hola, tengo un taller y me interesa la auditoría gratuita",
 };
-
-export const whatsappUrl = () =>
-  `https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(WHATSAPP.message)}`;
 
 /** Días desde la auditoría hasta que el sistema funciona. PLACEHOLDER: null mientras no esté confirmado. */
 export const SETUP_DAYS: number | null = null;
@@ -24,23 +22,28 @@ export const setupTimeText = () =>
     ? `En ${SETUP_DAYS} días desde la auditoría`
     : "Te confirmamos el plazo exacto en la auditoría";
 
-export const COMPANY = {
-  legalName: "[Razón social]", // PLACEHOLDER
-  taxId: "[XXXXXXXX]", // PLACEHOLDER
-  address: "[Dirección]", // PLACEHOLDER
-  registry: "[Datos del Registro Mercantil pendientes]", // PLACEHOLDER (solo si es sociedad)
-};
+/** Nombre con el que se identifica la web. Sin CIF/NIF ni datos de empresa por decisión del titular. */
+export const BRAND_NAME = "Mecavon Systems";
 
 export const SUPPORT_HOURS = "De lunes a viernes, de 9:00 a 18:00"; // PLACEHOLDER: confirma el horario real
 
-export const CONTACT_EMAIL = "hola@mecavon.es"; // PLACEHOLDER: buzón real
+export const CONTACT_EMAIL = "marcmartossalvany@gmail.com";
 
 export const PHONE = {
-  display: "+34 XXX XXX XXX", // PLACEHOLDER: como se muestra en la web
-  tel: "+34XXXXXXXXX", // PLACEHOLDER: mismo número sin espacios, para el enlace tel:
+  display: "+34 686767387", // como se muestra en el footer y el aviso legal
+  cardDisplay: "+34 686 76 73 87", // como se muestra en la tarjeta de contacto
+  tel: "+34686767387", // mismo número sin espacios, para el enlace tel:
 };
 
 export const PRIVACY_EMAIL = CONTACT_EMAIL; // email para ejercer derechos RGPD
+
+// Enlaces de contacto: todos los botones y enlaces de la web usan estos tres, para que sean idénticos.
+/** https://wa.me/34686767387?text=Hola%2C%20tengo%20un%20taller%20y%20me%20interesa%20la%20auditor%C3%ADa%20gratuita */
+export const WHATSAPP_HREF = `https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(WHATSAPP.message)}`;
+/** mailto:marcmartossalvany@gmail.com?subject=Auditor%C3%ADa%20gratuita%20Mecavon */
+export const EMAIL_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Auditoría gratuita Mecavon")}`;
+/** tel:+34686767387 */
+export const PHONE_HREF = `tel:${PHONE.tel}`;
 
 export type SocialNetwork = "linkedin" | "instagram" | "facebook" | "youtube";
 
@@ -74,6 +77,8 @@ export const PLANS: {
   goal: string;
   featured?: boolean;
   includes?: string;
+  /** Título dentro de la caja verde de funcionalidades. */
+  boxTitle: string;
   features: PlanFeature[];
   /** Nota bajo la lista (solo si el plan tiene ganchos). */
   hookNote?: string;
@@ -82,6 +87,7 @@ export const PLANS: {
     name: "Taller",
     price: 890,
     goal: "Para que no se te escape ningún cliente",
+    boxTitle: "Qué incluye",
     features: [
       { text: "Llamadas perdidas atendidas por WhatsApp 24 h" },
       { text: "Citas, confirmación y recordatorios" },
@@ -99,6 +105,7 @@ export const PLANS: {
     goal: "Para llenar la agenda, no solo ordenarla",
     featured: true,
     includes: "Todo lo del Taller, sin límites, más:",
+    boxTitle: "Lo que añade Pro",
     features: [
       { text: "Reactivación continua de clientes" },
       { text: "Avisos de mantenimiento e ITV" },

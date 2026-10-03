@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
-import { COMPANY, CONTACT_EMAIL, SITE_URL } from "@/config";
+import { BRAND_NAME, CONTACT_EMAIL, PHONE, SITE_URL } from "@/config";
 
 export const metadata: Metadata = {
   title: "Aviso legal | Mecavon Systems",
@@ -19,11 +19,9 @@ export default function LegalNoticePage() {
           title: "Datos identificativos",
           body: (
             <ul className="list-disc space-y-1 pl-5">
-              <li>Titular: {COMPANY.legalName}</li>
-              <li>CIF: {COMPANY.taxId}</li>
-              <li>Domicilio: {COMPANY.address}</li>
-              <li>Registro: {COMPANY.registry}</li>
+              <li>Titular: {BRAND_NAME}</li>
               <li>Email: {email}</li>
+              <li>Teléfono: {PHONE.display}</li>
               <li>Web: {SITE_URL}</li>
             </ul>
           ),
@@ -42,7 +40,7 @@ export default function LegalNoticePage() {
           title: "Propiedad intelectual",
           body: (
             <p>
-              Los textos, el logotipo y el diseño de esta web pertenecen a {COMPANY.legalName} o
+              Los textos, el logotipo y el diseño de esta web pertenecen a {BRAND_NAME} o
               se usan con permiso. No puedes copiarlos ni reutilizarlos sin nuestra autorización.
             </p>
           ),

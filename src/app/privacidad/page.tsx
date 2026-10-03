@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
-import { COMPANY, PRIVACY_EMAIL } from "@/config";
+import { BRAND_NAME, PRIVACY_EMAIL } from "@/config";
 
 export const metadata: Metadata = {
   title: "Política de privacidad | Mecavon Systems",
@@ -18,8 +18,7 @@ export default function PrivacyPage() {
           title: "Quién es el responsable",
           body: (
             <p>
-              {COMPANY.legalName}, con CIF {COMPANY.taxId} y domicilio en {COMPANY.address}. Puedes
-              escribirnos a {PRIVACY_EMAIL}.
+              {BRAND_NAME}. Puedes escribirnos a {PRIVACY_EMAIL}.
             </p>
           ),
         },

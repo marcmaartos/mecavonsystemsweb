@@ -5,6 +5,14 @@ const price = new Intl.NumberFormat("es-ES", { useGrouping: "always" } as Intl.N
 
 const PERK_ICONS = { zero: BadgeEuro, upgrade: TrendingUp };
 
+/** Caja verde clara de la lista de funcionalidades: la misma en los dos packs. */
+const featuresBox = "flex-1 rounded-xl border border-teal/30 bg-teal/5 p-5";
+const featuresBoxTitle = "mb-3 text-sm font-semibold text-teal-700";
+
+/** Mismo botón en los dos packs: verde sólido, texto blanco, mismo tamaño, radio y hover. */
+const planButton =
+  "flex min-h-12 items-center justify-center rounded-lg bg-teal px-6 font-semibold text-white transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal";
+
 export function Pricing() {
   return (
     <section id="precios" className="scroll-mt-16 bg-paper py-24 md:scroll-mt-[72px] md:py-32">
@@ -13,8 +21,8 @@ export function Pricing() {
           <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight text-navy sm:text-[2.6rem]">
             Precios claros, sin letra pequeña.
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed">
-            Nuestro equipo lo monta y lo gestiona. Tú eliges hasta dónde quieres llegar.
+          <p className="mt-6 text-lg leading-relaxed">
+            Lo montamos y lo gestionamos nosotros. Tú eliges hasta dónde llegar.
           </p>
         </div>
 
@@ -36,7 +44,7 @@ export function Pricing() {
               className={`relative flex flex-col rounded-2xl bg-white p-7 sm:p-9 ${
                 plan.featured
                   ? "order-first border-2 border-navy shadow-xl shadow-navy/10 md:order-none"
-                  : "border border-line"
+                  : "border-2 border-line"
               }`}
             >
               {plan.featured && (
@@ -50,23 +58,33 @@ export function Pricing() {
                 <span className="text-5xl font-bold tracking-tight">{price.format(plan.price)} €</span>
                 <span className="text-graphite">/mes</span>
               </p>
+              <p className="mt-3 flex items-center gap-2 text-sm text-graphite">
+                <Check size={16} strokeWidth={2.5} className="shrink-0 text-teal" aria-hidden="true" />
+                Sin permanencia · Cancela cuando quieras
+              </p>
 
               {plan.includes && <p className="mt-7 text-sm font-semibold text-navy">{plan.includes}</p>}
-              <ul className={`${plan.includes ? "mt-3" : "mt-7"} flex-1 space-y-3`}>
-                {plan.features.map((f) => (
-                  <li key={f.text} className="flex gap-3 text-[0.95rem] leading-snug">
-                    {f.hook ? (
-                      <Star size={20} strokeWidth={2} className="shrink-0 fill-teal text-teal" aria-hidden="true" />
-                    ) : (
-                      <Check size={20} strokeWidth={2.5} className="shrink-0 text-teal" aria-hidden="true" />
-                    )}
-                    <span>
-                      {f.text}
-                      {f.hook && <span className="sr-only"> (muestra de Taller Pro)</span>}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {/* Misma caja en los dos packs. flex-1 la estira para que el botón quede alineado en ambas tarjetas. */}
+              <div className={`${plan.includes ? "mt-3" : "mt-7"} flex flex-1 flex-col`}>
+                <div className={featuresBox}>
+                <p className={featuresBoxTitle}>{plan.boxTitle}</p>
+                <ul className="space-y-3">
+                  {plan.features.map((f) => (
+                    <li key={f.text} className="flex gap-3 text-[0.95rem] leading-snug">
+                      {f.hook ? (
+                        <Star size={20} strokeWidth={2} className="shrink-0 fill-teal text-teal" aria-hidden="true" />
+                      ) : (
+                        <Check size={20} strokeWidth={2.5} className="shrink-0 text-teal" aria-hidden="true" />
+                      )}
+                      <span>
+                        {f.text}
+                        {f.hook && <span className="sr-only"> (muestra de Taller Pro)</span>}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                </div>
+              </div>
               {plan.hookNote && (
                 <p className="mt-5 flex items-center gap-2 rounded-lg bg-paper px-3 py-2 text-sm font-medium text-navy">
                   <Star size={16} strokeWidth={2} className="shrink-0 fill-teal text-teal" aria-hidden="true" />
@@ -74,14 +92,7 @@ export function Pricing() {
                 </p>
               )}
 
-              <a
-                href={CTA_HREF}
-                className={`mt-8 flex min-h-12 items-center justify-center rounded-lg px-6 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal ${
-                  plan.featured
-                    ? "bg-teal text-white hover:bg-teal-700"
-                    : "border-2 border-teal text-teal hover:bg-teal hover:text-white"
-                }`}
-              >
+              <a href={CTA_HREF} className={`mt-8 ${planButton}`}>
                 {CTA_LABEL}
               </a>
             </li>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { whatsappUrl } from "@/config";
+import { WHATSAPP_HREF } from "@/config";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
 
@@ -61,9 +61,9 @@ export function WhatsAppButton() {
   return (
     <a
       ref={ref}
-      href={whatsappUrl()}
+      href={WHATSAPP_HREF}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       aria-label="Escríbenos por WhatsApp (se abre en una pestaña nueva)"
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}

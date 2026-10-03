@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { CookieSettingsButton } from "./CookieBanner";
-import { COMPANY, CONTACT_EMAIL, CTA_LABEL, PHONE, SUPPORT_HOURS } from "@/config";
+import { CONTACT_EMAIL, CTA_LABEL, EMAIL_HREF, PHONE, PHONE_HREF, SUPPORT_HOURS } from "@/config";
 // activar cuando existan los perfiles (junto con el bloque comentado de redes, más abajo):
 // import { SocialIcons } from "./SocialIcons";
 // import { SOCIAL_LINKS } from "@/config";
@@ -28,9 +28,6 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo variant="dark" />
-          <p className="mt-4 text-xs leading-relaxed text-mist/90">
-            Mecavon Systems · {COMPANY.legalName} · CIF {COMPANY.taxId} · {COMPANY.address}
-          </p>
           <p className="mt-5 max-w-xs text-sm leading-relaxed">
             Automatización gestionada para talleres de automoción. Tú reparas, Mecavon se encarga del resto.
           </p>
@@ -58,12 +55,12 @@ export function Footer() {
           <h2 className="text-sm font-semibold text-white">Contacto</h2>
           <ul className="mt-3 text-sm">
             <li>
-              <a href={`mailto:${CONTACT_EMAIL}`} className={linkClass}>
+              <a href={EMAIL_HREF} className={`${linkClass} break-all`}>
                 {CONTACT_EMAIL}
               </a>
             </li>
             <li>
-              <a href={`tel:${PHONE.tel}`} className={linkClass}>
+              <a href={PHONE_HREF} className={linkClass}>
                 {PHONE.display}
               </a>
             </li>
