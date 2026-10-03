@@ -28,7 +28,7 @@ export const BRAND_NAME = "Mecavon Systems";
 /** Titular de la web para las páginas legales (todavía no hay sociedad constituida). */
 export const HOLDER = {
   name: "Marc Martos Salvany",
-  city: "[TU CIUDAD]", // PLACEHOLDER: ciudad del domicilio y de los juzgados competentes
+  city: "Vilafranca del Penedès (Barcelona)", // ciudad del domicilio y de los juzgados competentes
 };
 export const HOLDER_TEXT = `${HOLDER.name}, que opera bajo el nombre comercial ${BRAND_NAME}`;
 
