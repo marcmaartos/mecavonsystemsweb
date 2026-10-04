@@ -1,7 +1,7 @@
 // Datos que cambian a menudo. Todo lo marcado "PLACEHOLDER" hay que sustituirlo antes de publicar.
 // Regla de la web: aquí solo va información verdadera. Si algo no está confirmado, se deja vacío o comentado.
 
-export const SITE_URL = "https://mecavon-systems.vercel.app"; // cambiar cuando haya dominio propio
+export const SITE_URL = "https://mecavonsystems.es"; // dominio propio (Hostinger → Vercel)
 
 export const CTA_LABEL = "Auditoría gratuita";
 export const CTA_SUBTEXT = "Te decimos cuánto dinero pierdes en una semana. Gratis y sin compromiso.";
