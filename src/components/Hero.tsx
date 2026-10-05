@@ -70,7 +70,7 @@ export function Hero() {
             cuando toca volver.
           </p>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-8">
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-8">
             {/* Botón principal y su línea de apoyo van juntos, con el mismo ancho. */}
             <div className="flex flex-col sm:w-72">
               <a
@@ -79,7 +79,10 @@ export function Hero() {
               >
                 {CTA_LABEL}
               </a>
-              <p className="mt-2 text-sm leading-snug text-mist">{CTA_SUBTEXT}</p>
+              {/* Interlineado 1,5 en línea: la regla global de párrafos (1,6) prevalece sobre las clases leading-*. */}
+              <p className="mt-3.5 mb-2 text-sm text-mist/80" style={{ lineHeight: 1.5 }}>
+                {CTA_SUBTEXT}
+              </p>
             </div>
             {/* Enlace secundario de texto: no compite con el botón verde (misma altura para quedar alineado). */}
             <a
