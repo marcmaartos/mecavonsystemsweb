@@ -55,7 +55,8 @@ export default function PrivacyPage() {
             <>
               <p>No vendemos tus datos. Solo los tratan, por nuestra cuenta, estos proveedores:</p>
               <ul className="list-disc space-y-1 pl-5">
-                <li>Vercel: alojamiento de la web, incluido el formulario.</li>
+                <li>Vercel: alojamiento de la web.</li>
+                <li>Web3Forms: envío de los datos del formulario de auditoría a nuestro correo.</li>
                 <li>Google: correo electrónico, si nos escribes por email.</li>
                 <li>WhatsApp (Meta): mensajería, si nos escribes por WhatsApp.</li>
               </ul>
