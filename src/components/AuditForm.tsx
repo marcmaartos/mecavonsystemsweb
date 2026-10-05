@@ -3,10 +3,18 @@
 import { useState, type FormEvent, type InputHTMLAttributes } from "react";
 import Link from "next/link";
 import { CircleCheck } from "lucide-react";
-import { CTA_LABEL } from "@/config";
+import { CONTACT_EMAIL, CTA_LABEL, WHATSAPP_HREF } from "@/config";
 import { validateAudit, type AuditErrors, type AuditField } from "@/lib/audit";
 
 type Status = "idle" | "sending" | "sent" | "error";
+
+// Web3Forms: la clave de acceso es pública por diseño (solo permite enviar a tu email).
+// Se configura con la variable de entorno NEXT_PUBLIC_WEB3FORMS_KEY (en Vercel y en .env.local).
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+
+const CONTACT_LABELS: Record<string, string> = { llamada: "Llamada", whatsapp: "WhatsApp" };
+const SCHEDULE_LABELS: Record<string, string> = { manana: "Por la mañana", mediodia: "A mediodía", tarde: "Por la tarde" };
 
 const inputClass =
   "mt-2 block min-h-12 w-full rounded-lg border border-line bg-white px-4 text-navy placeholder:text-graphite/70 transition-colors focus:border-teal focus:outline-none focus:ring-4 focus:ring-teal/20 aria-[invalid=true]:border-red-700";
@@ -59,13 +67,14 @@ function Field({
 export function AuditForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<AuditErrors>({});
-  const [viaWhatsApp, setViaWhatsApp] = useState(false);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const found = validateAudit((f) => String(data.get(f) ?? "").trim());
+    const get = (f: string) => String(data.get(f) ?? "").trim();
+
+    const found = validateAudit((f) => get(f));
     setErrors(found);
     const first = Object.keys(found)[0];
     if (first) {
@@ -73,18 +82,41 @@ export function AuditForm() {
       return;
     }
 
+    // Antispam: la casilla "botcheck" está oculta; solo un bot la marcaría. No se envía nada.
+    if (data.get("botcheck")) {
+      setStatus("sent");
+      return;
+    }
+
     setStatus("sending");
     try {
-      const res = await fetch("/api/auditoria", {
+      if (!WEB3FORMS_KEY) throw new Error("Falta NEXT_PUBLIC_WEB3FORMS_KEY");
+      const taller = get("taller");
+      const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(data)),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Nueva solicitud de auditoría – ${taller}`,
+          from_name: "Web Mecavon",
+          replyto: get("email"),
+          // Campos con etiqueta clara: así aparecen en el email.
+          Nombre: get("nombre"),
+          Taller: taller,
+          Teléfono: get("telefono"),
+          Email: get("email"),
+          "Prefiere que le contacten por": CONTACT_LABELS[get("contacto")] ?? get("contacto"),
+          "Franja horaria": SCHEDULE_LABELS[get("horario")] ?? get("horario"),
+          "Acepta la política de privacidad": "Sí",
+        }),
       });
-      if (!res.ok) throw new Error();
-      setViaWhatsApp(data.get("contacto") === "whatsapp");
+      const result = await res.json().catch(() => null);
+      if (!res.ok || !result?.success) throw new Error(result?.message ?? `HTTP ${res.status}`);
       setStatus("sent");
       form.reset();
-    } catch {
+    } catch (err) {
+      console.error("No se pudo enviar el formulario de auditoría:", err);
+      // No se vacía el formulario: el cliente conserva lo que ha escrito.
       setStatus("error");
     }
   }
@@ -93,12 +125,8 @@ export function AuditForm() {
     return (
       <div role="status" className="flex flex-col items-start gap-4 py-8">
         <CircleCheck size={44} strokeWidth={2} className="text-teal" aria-hidden="true" />
-        <h3 className="text-2xl font-semibold text-navy">¡Recibido! Tu auditoría está en marcha.</h3>
-        <p className="leading-relaxed">
-          {viaWhatsApp
-            ? "Te escribimos por WhatsApp en la franja que has elegido para empezar."
-            : "Te llamamos en la franja que has elegido para empezar."}{" "}
-          En una semana te decimos cuánto dinero se te está escapando.
+        <p className="text-xl font-semibold text-teal-700">
+          ¡Recibido! Te contactaremos muy pronto para empezar tu auditoría.
         </p>
       </div>
     );
@@ -124,7 +152,7 @@ export function AuditForm() {
           required
           error={errors.telefono}
         />
-        <Field id="email" label="Email" type="email" autoComplete="email" error={errors.email} />
+        <Field id="email" label="Email" type="email" autoComplete="email" required error={errors.email} />
       </div>
 
       <fieldset>
@@ -162,11 +190,8 @@ export function AuditForm() {
         </select>
       </div>
 
-      {/* Campo trampa para bots: invisible para personas. */}
-      <div className="hidden" aria-hidden="true">
-        <label htmlFor="web">No rellenar</label>
-        <input id="web" name="web" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
+      {/* Antispam (honeypot) que reconoce Web3Forms: oculto para personas; solo un bot lo marcaría. */}
+      <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
       <div>
         <div className="flex items-start gap-3">
@@ -197,17 +222,33 @@ export function AuditForm() {
         )}
       </div>
 
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="mt-2 min-h-14 rounded-lg bg-teal px-7 font-semibold text-white transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-70"
-      >
-        {status === "sending" ? "Enviando…" : `Pedir mi ${CTA_LABEL.toLowerCase()}`}
-      </button>
+      <div className="mt-2">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="min-h-14 w-full rounded-lg bg-teal px-7 font-semibold text-white transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:cursor-wait disabled:opacity-70"
+        >
+          {status === "sending" ? "Enviando..." : `Pedir mi ${CTA_LABEL.toLowerCase()}`}
+        </button>
+        <p className="mt-2 text-xs text-graphite">
+          Al enviar aceptas nuestra{" "}
+          <Link href="/privacidad" className="underline underline-offset-2 hover:text-navy">
+            política de privacidad
+          </Link>
+        </p>
+      </div>
 
       {status === "error" && (
-        <p role="alert" className="text-sm text-red-700">
-          No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo, o escríbenos por WhatsApp.
+        <p role="alert" className="text-sm font-medium text-red-700">
+          No se ha podido enviar. Escríbenos por{" "}
+          <a href={WHATSAPP_HREF} target="_blank" rel="noopener" className="underline underline-offset-2">
+            WhatsApp
+          </a>{" "}
+          o a{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-2">
+            {CONTACT_EMAIL}
+          </a>
+          .
         </p>
       )}
     </form>

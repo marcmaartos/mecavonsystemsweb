@@ -66,12 +66,11 @@ export function Hero() {
             Mecavon se encarga del resto.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-mist">
-            Contestamos las llamadas que no puedes coger, recordamos los presupuestos que se
-            quedan en el aire y avisamos a tus clientes cuando toca volver. Todo por WhatsApp,
-            sin que sueltes la llave.
+            Contestamos por WhatsApp las llamadas que no coges, seguimos tus presupuestos y avisamos
+            cuando toca volver.
           </p>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-8">
             {/* Botón principal y su línea de apoyo van juntos, con el mismo ancho. */}
             <div className="flex flex-col sm:w-72">
               <a
@@ -82,11 +81,12 @@ export function Hero() {
               </a>
               <p className="mt-2 text-sm leading-snug text-mist">{CTA_SUBTEXT}</p>
             </div>
+            {/* Enlace secundario de texto: no compite con el botón verde (misma altura para quedar alineado). */}
             <a
               href="#como-funciona"
-              className="mt-3 flex min-h-14 items-center justify-center rounded-lg border-2 border-white/70 px-7 text-center font-semibold text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:mt-0"
+              className="inline-flex min-h-12 items-center self-start font-semibold text-white/85 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:min-h-14"
             >
-              Ver cómo funciona
+              Ver cómo funciona →
             </a>
           </div>
 

@@ -1,4 +1,4 @@
-// Validación compartida por el formulario (navegador) y la API (servidor).
+// Validación del formulario de auditoría (se ejecuta en el navegador antes de enviar a Web3Forms).
 
 export type AuditField = "nombre" | "taller" | "telefono" | "email" | "contacto" | "horario" | "consentimiento";
 export type AuditErrors = Partial<Record<AuditField, string>>;
@@ -19,7 +19,8 @@ export function validateAudit(get: (field: AuditField) => string): AuditErrors {
   if (!isSpanishPhone(get("telefono")))
     errors.telefono = "Escribe un teléfono español de 9 cifras, por ejemplo 612 345 678.";
   const email = get("email");
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Revisa el email o déjalo en blanco.";
+  if (!email) errors.email = "Escribe tu email.";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errors.email = "Revisa el email, por ejemplo nombre@taller.com.";
   if (!get("consentimiento")) errors.consentimiento = "Marca la casilla para que podamos contactarte.";
   return errors;
 }

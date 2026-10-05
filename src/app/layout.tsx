@@ -19,8 +19,6 @@ export const metadata: Metadata = {
   title: "Mecavon Systems | Automatización para talleres de automoción",
   description,
   alternates: { canonical: "/" },
-  // quitar al lanzar: evita que Google indexe la web mientras está en pruebas.
-  robots: { index: false },
   openGraph: {
     title: "Tú reparas. Mecavon se encarga del resto.",
     description,

@@ -40,7 +40,7 @@ export function CookieSettingsButton({ className }: { className?: string }) {
 }
 
 const btn =
-  "min-h-11 rounded-lg px-5 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal";
+  "min-h-9 rounded-lg px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal";
 
 export function CookieBanner() {
   const [open, setOpen] = useState(false);
@@ -81,22 +81,21 @@ export function CookieBanner() {
       role="dialog"
       aria-modal="false"
       aria-labelledby="cookies-title"
-      className="fixed inset-x-0 bottom-0 z-[55] border-t border-line bg-white p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_rgba(21,46,104,0.12)] sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-lg sm:rounded-2xl sm:border"
+      // Compacto y flotante: en móvil ocupa el ancho con 12 px de margen; en escritorio, esquina inferior izquierda (máx. 360 px).
+      className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-[55] max-h-[33vh] overflow-y-auto rounded-xl border border-line bg-white p-4 shadow-[0_8px_24px_rgba(21,46,104,0.14)] sm:inset-x-auto sm:bottom-4 sm:left-4 sm:max-h-none sm:w-[360px]"
     >
-      <h2 id="cookies-title" className="font-semibold text-navy">
+      <h2 id="cookies-title" className="sr-only">
         Cookies
       </h2>
-      <p className="mt-2 text-sm leading-relaxed">
-        Usamos cookies técnicas, necesarias para que la web funcione. Con tu permiso usaríamos
-        también cookies de analítica y marketing. Más información en la{" "}
+      <p className="text-[13px] leading-snug text-graphite">
+        Usamos cookies técnicas y, si aceptas, también de analítica y marketing.{" "}
         <Link href="/cookies" className="font-medium text-navy underline underline-offset-2">
-          política de cookies
+          Política de cookies
         </Link>
-        .
       </p>
 
       {configuring && (
-        <fieldset className="mt-4 space-y-1 border-t border-line pt-3">
+        <fieldset className="mt-3 space-y-1 border-t border-line pt-2">
           <legend className="sr-only">Elige qué cookies aceptas</legend>
           <label className="flex min-h-11 items-center justify-between gap-4 text-sm">
             <span>
@@ -129,32 +128,32 @@ export function CookieBanner() {
         </fieldset>
       )}
 
-      <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-        {/* Aceptar y rechazar con el mismo diseño, como exige la AEPD. */}
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        {/* Aceptar y rechazar con el mismo diseño y tamaño, como exige la AEPD. */}
         <button type="button" onClick={() => decide(false, false)} className={`${btn} bg-teal text-white hover:bg-teal-700`}>
           Rechazar
         </button>
         <button type="button" onClick={() => decide(true, true)} className={`${btn} bg-teal text-white hover:bg-teal-700`}>
           Aceptar
         </button>
-        {configuring ? (
-          <button
-            type="button"
-            onClick={() => decide(analytics, marketing)}
-            className={`${btn} col-span-2 border-2 border-teal text-teal hover:bg-teal hover:text-white`}
-          >
-            Guardar mi elección
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setConfiguring(true)}
-            className={`${btn} col-span-2 border-2 border-teal text-teal hover:bg-teal hover:text-white`}
-          >
-            Configurar
-          </button>
-        )}
       </div>
+      {configuring ? (
+        <button
+          type="button"
+          onClick={() => decide(analytics, marketing)}
+          className={`${btn} mt-2 w-full border-2 border-teal text-teal hover:bg-teal hover:text-white`}
+        >
+          Guardar mi elección
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setConfiguring(true)}
+          className="mt-2 text-xs font-medium text-graphite underline underline-offset-2 hover:text-navy"
+        >
+          Configurar
+        </button>
+      )}
     </section>
   );
 }
